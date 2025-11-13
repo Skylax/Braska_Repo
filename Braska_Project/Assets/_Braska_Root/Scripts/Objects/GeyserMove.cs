@@ -15,6 +15,8 @@ public class GeyserMove : MonoBehaviour
     public ParticleSystem particlesBase;
     public ParticleSystem particlesTop;
 
+    private bool geyserSoundPlaying = false;
+
     private void Start()
     {
         startingPoint = geyserPlatform.transform.position;
@@ -68,7 +70,13 @@ public class GeyserMove : MonoBehaviour
                 particlesBase.Play();
                 particlesTop.Play();
             }
+            if (!geyserSoundPlaying)
+            {
+                AudioManager.Instance.PlaySFX(6);
+                geyserSoundPlaying = true;
+            }
         }
+     
         else
         {
             geyserPlatform.transform.position = Vector3.SmoothDamp(
@@ -76,6 +84,8 @@ public class GeyserMove : MonoBehaviour
                 startingPoint,
                 ref currentSpeed,
                 ObjectManager.instance.geyserMoveTime * 10 * Time.deltaTime
+
+
             );
 
             if (emitParicles)
@@ -84,6 +94,11 @@ public class GeyserMove : MonoBehaviour
 
                 particlesBase.Stop();
                 particlesTop.Stop();
+            }
+            if (geyserSoundPlaying)
+            {
+                geyserSoundPlaying = false;
+                // Opcional: si quieres que se corte, puedes reproducir un SFX de “parada” o dejarlo
             }
         }
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Clip Arrays")]
     public AudioClip[] musiclist;
     public AudioClip[] sfxList;
+
+   
     #endregion
     #region Void
     private void Awake()
@@ -29,10 +32,29 @@ public class AudioManager : MonoBehaviour
 
             SetMusicVolume(savedMusic);
             SetSFXVolume(savedSFX);
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }    
         else
         {
             Destroy(gameObject);
+        }
+    }
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        switch (scene.name)
+        {
+            case "MainMenu":
+                PlayMusic(0);
+            break;
+
+            case "SCN_Level0":
+                PlayMusic(1);
+                break;
+
+            case "SCN_Level1":
+                PlayMusic(1);
+                break;
         }
     }
     #endregion

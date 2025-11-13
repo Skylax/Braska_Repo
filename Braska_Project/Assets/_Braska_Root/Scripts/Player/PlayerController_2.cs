@@ -41,6 +41,14 @@ public class PlayerController_2 : MonoBehaviour
     [SerializeField] GameObject orb;
     public ParticleSystem trackParticles;
 
+
+   
+
+
+
+
+
+
     private void Awake()
     {
         playerRb = GetComponent<Rigidbody>();
@@ -51,6 +59,7 @@ public class PlayerController_2 : MonoBehaviour
 
     private void Start()
     {
+     
         if (trackParticles != null)
         {
             trackParticles.Stop();
@@ -74,7 +83,6 @@ public class PlayerController_2 : MonoBehaviour
             ObjectManager.instance.hasOrb = false;
         }
     }
-
     private void SpawnTransform() // Spawns the player where it should be.
     {
         transform.position = ScenesManager.instance.spawnPoint;
@@ -156,7 +164,7 @@ public class PlayerController_2 : MonoBehaviour
             playerRb.linearVelocity = Vector3.zero;
             playerRb.angularVelocity = Vector3.zero;
         }
-
+     
         transform.position += moveSpeed * Time.deltaTime * transform.forward; // Moves the player forward.
     }
 
@@ -164,6 +172,15 @@ public class PlayerController_2 : MonoBehaviour
     {
         if (canBark && canDig)
         {
+            int[] barkSFXIndices = new int[] { 7, 8, 1 };
+
+            // Elegir uno aleatoriamente
+            int randomIndex = Random.Range(0, barkSFXIndices.Length);
+            int sfxIndex = barkSFXIndices[randomIndex];
+
+            // Reproducir el SFX
+            AudioManager.Instance.PlaySFX(sfxIndex);
+
             canBark = false;
             canDig = false;
             canMove = false;
@@ -177,6 +194,8 @@ public class PlayerController_2 : MonoBehaviour
     {
         if (canDig && canBark)
         {
+           
+
             canBark = false;
             canDig = false;
             canMove = false;
@@ -193,6 +212,8 @@ public class PlayerController_2 : MonoBehaviour
         if (trackParticles != null && !ObjectManager.instance.hasOrb)
         {
             trackParticles.Play();
+            AudioManager.Instance.PlaySFX(5);
+
         }
 
         Invoke(nameof(FinishAction), 0.9f);

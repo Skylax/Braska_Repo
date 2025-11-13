@@ -46,12 +46,14 @@ public class OrbFollow : MonoBehaviour
         {
             ObjectManager.instance.hasOrb = true;
 
+            AudioManager.Instance.PlaySFX(2);
             Invoke(nameof(FollowStart), 1f);
         }
     }
 
     private void FollowStart()
     {
+        AudioManager.Instance.PlaySFX(3);
         followStart = true;
     }
 }

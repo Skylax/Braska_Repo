@@ -76,6 +76,7 @@ public class Teleport : MonoBehaviour
 
     private void OrderTeleport()
     {
+        AudioManager.Instance.PlaySFX(9);
         ScenesManager.instance.TeleportPlayer(sceneToLoad, newSpawnPoint, newSpawnView);
     }
 

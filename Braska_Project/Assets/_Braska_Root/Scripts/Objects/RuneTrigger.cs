@@ -6,6 +6,7 @@ public class RuneTrigger : MonoBehaviour
     {
         if (other.CompareTag("Bark") && ObjectManager.instance.runeCanTrigger)
         {
+            AudioManager.Instance.PlaySFX(4);
             ObjectManager.instance.RunePrepareMove();
         }
     }
