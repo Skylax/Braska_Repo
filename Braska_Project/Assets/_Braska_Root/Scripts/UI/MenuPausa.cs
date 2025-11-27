@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MenuPausa : MonoBehaviour
@@ -70,4 +71,25 @@ public class MenuPausa : MonoBehaviour
         PausaMenu.SetActive(false);
         MusicaMenu.SetActive(true);
     }
+
+    public class HoverDecorations : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    {
+        public GameObject leftDecoration;
+        public GameObject rightDecoration;
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            leftDecoration.SetActive(true);
+            rightDecoration.SetActive(true);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            leftDecoration.SetActive(false);
+            rightDecoration.SetActive(false);  
+        }
+
+    }
+
+
 }
